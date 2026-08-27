@@ -1,0 +1,12 @@
+.csv
+*.pkl
+*.h5
+*.keras
+*.joblib
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+_nb_dump.txt
+_dump_nb.py
