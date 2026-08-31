@@ -1,115 +1,306 @@
-# Stock Price Prediction Using Statistical Analysis, Machine Learning, and Deep Learning
+# 📈 Stock Price Prediction
 
-Forecast the **next-day closing price** of stocks listed on the **Dhaka Stock Exchange (DSE)**, with a primary case study on **BEXIMCO**. The pipeline combines time-series diagnostics, technical features, gradient-boosting models, and sequence networks (BiLSTM and Transformer).
+A machine learning and deep learning project for **next-day stock price prediction** using historical data from the **Dhaka Stock Exchange (DSE)**.
 
-## Project description
+The project supports both **single-stock** and **multi-stock** prediction. **BEXIMCO** is used as the primary single-stock case study.
 
-Stock prices are non-stationary, noisy, and driven by regime shifts. This project:
+---
 
-1. Cleans multi-decade DSE daily bars (open, high, low, close, volume).
-2. Tests stationarity and structural breaks (ADF, Phillips–Perron, CUSUM).
-3. Builds next-day close models for a **single ticker** (BEXIMCO) and for **many tickers** together.
-4. Compares linear, tree, boosting, and deep models on a chronological hold-out set.
+## 📌 Project Overview
 
-The original notebooks used OLS, Random Forest, XGBoost, and a vanilla LSTM. They have been rebuilt so that splits do not leak future data, neural nets scale the **target** as well as the features, and newer models (LightGBM, CatBoost, BiLSTM, Transformer) are included.
+This project analyzes historical DSE stock data and predicts the **next trading day's closing price** using:
 
-## Dataset
+* Technical indicators
+* Statistical analysis
+* Machine learning
+* Gradient boosting
+* Deep learning
+* Ensemble learning
 
-Historical daily trading records from the Dhaka Stock Exchange:
+The project is divided into two main prediction tasks:
 
-| Column | Description |
-| --- | --- |
-| `Trading_Code` | Ticker |
-| `Date` | Trading date |
-| `Open`, `High`, `Low`, `Close` | Prices (BDT) |
-| `Volume` | Traded volume |
+### Single-Stock Prediction
 
-Source: [Mendeley — DSE daily data](https://data.mendeley.com/datasets/23553sm4tn/4)
+Focuses on **BEXIMCO** and applies statistical analysis, machine learning, BiLSTM, Transformer, and ensemble models.
 
-Place the raw file at `data/DSE_raw.csv`, or upload it when running the cleaning notebook in Colab.
+### Multi-Stock Prediction
 
-## Repository layout
+Predicts next-day closing prices across multiple DSE-listed stocks using tree-based and boosting models with a shared calendar-based time split.
 
+---
+
+## 📊 Dataset
+
+The dataset contains historical daily trading information from the Dhaka Stock Exchange.
+
+| Feature        | Description       |
+| -------------- | ----------------- |
+| `Trading_Code` | Stock ticker/code |
+| `Date`         | Trading date      |
+| `Open`         | Opening price     |
+| `High`         | Highest price     |
+| `Low`          | Lowest price      |
+| `Close`        | Closing price     |
+| `Volume`       | Trading volume    |
+
+**Primary Stock:** BEXIMCO
+
+---
+
+## ⚙️ Features
+
+The project uses historical market data along with engineered features:
+
+* Price features
+* Daily and log returns
+* Lag features
+* Moving averages
+* Volatility
+* RSI
+* MACD
+* Bollinger Bands
+* ATR
+* Volume indicators
+* Calendar features
+
+---
+
+## 🤖 Models
+
+### Machine Learning
+
+* Ridge Regression
+* Random Forest
+* HistGradientBoosting
+* XGBoost
+* LightGBM
+* CatBoost
+
+### Deep Learning
+
+* Bidirectional LSTM (BiLSTM)
+* Transformer Encoder
+
+### Ensemble
+
+* Inverse-RMSE Weighted Ensemble
+
+---
+
+## 🔬 Statistical Analysis
+
+For the single-stock analysis, the project includes:
+
+* Augmented Dickey-Fuller (ADF) Test
+* Phillips-Perron Test
+* CUSUM Structural Break Analysis
+
+---
+
+## ⏱️ Time-Series Validation
+
+The project uses **chronological train/validation/test splitting** instead of random splitting.
+
+For multi-stock prediction, a **shared calendar-based split** is used across stocks to prevent temporal and ticker-order leakage.
+
+---
+
+## 📏 Evaluation Metrics
+
+Model performance is evaluated using:
+
+* **R² Score**
+* **RMSE**
+* **MAE**
+* **MAPE**
+* **Directional Accuracy**
+
+---
+
+## 📂 Project Structure
+
+```text
+Stock_Price_Prediction/
+│
+├── 📁 catboost_info/
+│   └── CatBoost training information
+│
+├── 📁 dataset/
+│   ├── Raw DSE datasets
+│   └── Processed datasets
+│
+├── 📁 models/
+│   └── Trained model files
+│
+├── 📁 results/
+│   └── Prediction and evaluation results
+│
+├── 📁 src/
+│   ├── features.py
+│   ├── split.py
+│   ├── metrics.py
+│   └── models.py
+│
+├── 📄 DSA_Data_Cleaning_.ipynb
+├── 📄 Single_Stock_Close_Price.ipynb
+├── 📄 MultiStock_Prediction.ipynb
+│
+├── 📄 app.py
+├── 📄 main.py
+├── 📄 predict.py
+├── 📄 retrain.py
+├── 📄 train_final.py
+├── 📄 update_data.py
+├── 📄 visualize.py
+├── 📄 _build_notebooks.py
+├── 📄 run_update.bat
+├── 📄 requirements.txt
+└── 📄 README.md
 ```
-Stock-Price-Prediction/
-├── README.md
-├── requirements.txt
-├── data/                              # raw + cleaned CSVs (not committed)
-├── src/
-│   ├── features.py                    # RSI, MACD, ATR, lags, returns, …
-│   ├── split.py                       # chronological and calendar-date splits
-│   ├── metrics.py                     # R², RMSE, MAE, MAPE, direction accuracy
-│   └── models.py                      # Ridge, trees, boosters, BiLSTM, Transformer
-└── Stock Price Prediction/
-    ├── DSA_Data_Cleaning_.ipynb       # cleaning + EDA
-    ├── Single_Stock_Close_Price.ipynb # BEXIMCO next-day close
-    └── MultiStock_Prediction.ipynb    # pooled multi-ticker model
+
+---
+
+## 📓 Notebooks
+
+### `DSA_Data_Cleaning_.ipynb`
+
+Data cleaning and exploratory analysis of DSE stock data.
+
+### `Single_Stock_Close_Price.ipynb`
+
+Complete **BEXIMCO single-stock forecasting** pipeline including statistical analysis, machine learning, BiLSTM, Transformer, and ensemble prediction.
+
+### `MultiStock_Prediction.ipynb`
+
+**Multi-stock forecasting** pipeline using multiple machine learning and boosting models.
+
+---
+
+## 🛠️ Tech Stack
+
+**Language**
+
+* Python
+
+**Data Processing**
+
+* Pandas
+* NumPy
+
+**Machine Learning**
+
+* Scikit-learn
+* XGBoost
+* LightGBM
+* CatBoost
+
+**Deep Learning**
+
+* TensorFlow
+* Keras
+
+**Statistical Analysis**
+
+* Statsmodels
+
+**Visualization**
+
+* Matplotlib
+* Plotly
+
+---
+
+## 🚀 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Nujat11/Stock_Price_Prediction.git
+cd Stock_Price_Prediction
 ```
 
-Notebooks add the repo root to `sys.path` so `src` imports work from Colab or a local Jupyter kernel.
-
-## Setup
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Main dependencies: pandas, scikit-learn, XGBoost, LightGBM, CatBoost, TensorFlow, statsmodels, matplotlib, plotly.
+---
 
-## How to run
+## ▶️ Usage
 
-1. **Clean** — `DSA_Data_Cleaning_.ipynb`  
-   Per-stock outlier clipping, invalid-row removal, tickers with enough history. Writes `data/Cleaned_DSE_Data.csv` and `Cleaned.csv`.
+### Update Data
 
-2. **Single stock** — `Single_Stock_Close_Price.ipynb`  
-   BEXIMCO (falls back to the most frequent ticker if BEXIMCO is missing). Train / validation / test by time. Fits tabular models, an inverse-RMSE ensemble, BiLSTM, and a Transformer encoder.
+```bash
+python update_data.py
+```
 
-3. **Multi-stock** — `MultiStock_Prediction.ipynb`  
-   Shared **calendar** cutoffs for every ticker (not a row-index split after sorting by name). Trains Ridge, XGBoost, LightGBM, CatBoost, HistGBM, then an ensemble.
+### Train Model
 
-## Features
+```bash
+python train_final.py
+```
 
-Built per ticker, then aligned to the next-day close (`Target_Close`):
+### Retrain Model
 
-- Returns, log returns, high–low and close–open spreads  
-- Close and return lags (1, 2, 3, 5, 7, 14)  
-- SMA / EMA / volume SMA and rolling volatility (7, 14, 21)  
-- RSI(14), MACD, Bollinger %B, ATR(14), volume z-score  
-- Day of week and month  
+```bash
+python retrain.py
+```
 
-## Models
+### Generate Predictions
 
-| Family | Models |
-| --- | --- |
-| Linear | Ridge |
-| Trees | Random Forest, HistGradientBoosting |
-| Boosting | XGBoost, LightGBM, CatBoost (early stopping on the validation window) |
-| Deep | Bidirectional LSTM; Transformer encoder (Huber loss, early stopping, LR schedule) |
-| Combine | Inverse-RMSE weighted ensemble of the three best tabular models |
+```bash
+python predict.py
+```
 
-Sequence models scale **X and y on the training window only**, then invert predictions to price space. That is the main reason the old LSTM underperformed a linear baseline.
+### Visualize Results
 
-## Evaluation
+```bash
+python visualize.py
+```
 
-Reported on the **test dates** (not shuffled rows):
+### Run Application
 
-- R², RMSE, MAE, MAPE  
-- **Direction accuracy** — whether the predicted move from today’s close matches the actual next-day move  
+```bash
+python app.py
+```
 
-Next-day close is highly persistent, so R² on price can look strong even when the **return** is hard to forecast. Use RMSE and direction accuracy to compare models.
+---
 
-## Statistical diagnostics (single-stock notebook)
+## 🔐 Data Leakage Prevention
 
-- Augmented Dickey–Fuller (ADF)  
-- Phillips–Perron (regression-based statistic)  
-- CUSUM on OLS residuals for structural breaks  
-- Price path plot for BEXIMCO  
+The project takes several measures to prevent future information from entering the training process:
 
-Raw close is typically non-stationary; that is expected for levels and is why the pipeline uses returns and technical features rather than modelling the raw series alone.
+* Chronological train/validation/test splitting
+* Training-only scaling
+* Proper target shifting
+* Calendar-based splitting for multi-stock prediction
+* Time-aware feature generation
 
-## Notes on the upgrade
+---
 
-- **No ticker-order leakage** in the multi-stock split.  
-- **No full-sample scaler** on LSTM inputs or targets.  
-- Cleaning clips outliers **inside each stock**, so expensive tickers are not crushed by a global quantile.  
-- Colab file upload still works; local CSV paths are checked first.  
+## 🔮 Future Work
+
+* Real-time DSE data integration
+* News and sentiment analysis
+* Macroeconomic features
+* Walk-forward validation
+* Hyperparameter optimization
+* Advanced Transformer models
+* Explainable AI
+* Real-time prediction dashboard
+
+---
+
+## 👨‍💻 Author
+
+**Nujat-E-Hasnat**
+
+Computer Science Undergraduate
+Independent University, Bangladesh
+
+[GitHub](https://github.com/Nujat11)
+
+---
+
+> **Disclaimer:** This project is intended for educational and research purposes only. Stock-price predictions should not be considered financial advice or investment recommendations.
