@@ -291,16 +291,3 @@ The project takes several measures to prevent future information from entering t
 * Real-time prediction dashboard
 
 ---
-
-## 👨‍💻 Author
-
-**Nujat-E-Hasnat**
-
-Computer Science Undergraduate
-Independent University, Bangladesh
-
-[GitHub](https://github.com/Nujat11)
-
----
-
-> **Disclaimer:** This project is intended for educational and research purposes only. Stock-price predictions should not be considered financial advice or investment recommendations.
